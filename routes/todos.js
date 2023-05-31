@@ -13,11 +13,9 @@ router.get('/',async (req, res) => {
 })
 //Save a new To do
 router.post('/new',async (req, res) => {
-    const newTodo = new Todo({
-        'todos': 'Check bookks',
-        'author': 'Richarch ngee',
-        'age' :45
-    })
+    const newTodo = new Todo(
+        req.body
+    )
     const savedTodo= await newTodo.save()
     res.json(savedTodo)
 })
@@ -26,15 +24,16 @@ router.get('/get/:id',async (req, res) => {
     const t=await Todo.findById({_id:req.params.id})
     res.json(t)
 })
-router.delete('/delete/:id',async (res,req) => {
+router.delete('/delete/:id',async (req,res) => {
     const deletee=await Todo.findByIdAndDelete({_id:req.params.id})
+
 })
 
-router.put('/update/:id',async (res,req) => {
-    const tupdate = await Todo.updateOne({
-        'auther':'joane',
-        'todo':'find house'
-    })
+router.put('/update/:id',async (req,res) => {
+    const tupdate = await Todo.updateOne(
+        {_id:req.params.id},
+    { $set : req.body}
+    );
     res.json(tupdate)
 })
 

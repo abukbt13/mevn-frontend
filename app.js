@@ -1,6 +1,7 @@
  const express= require('express')
 
  const mongoose = require('mongoose')
+ require('dotenv').config()
 
  const bodyParser =require('body-parser')
 
@@ -13,8 +14,7 @@
  })
 
  //connect to db clouddb
-
- const uri = "mongodb+srv://abukbt13:3febJqA2eYpJLErV@cluster0.zqhlbn0.mongodb.net/?retryWrites=true&w=majority"
+const uri = process.env.MONGODB_URI;
  mongoose.connect(uri, {
      useNewUrlParser: true,
      useUnifiedTopology: true
@@ -31,4 +31,4 @@
 
 app.use('/todos', todoroute)
 
-app.listen(3000)
+app.listen(3001)
